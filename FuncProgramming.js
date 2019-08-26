@@ -615,3 +615,92 @@ var averageRating = newList.map(movie => Number(movie["imdbRating"])).reduce(red
 
 console.log(averageRating); 
 
+//16. Sort an Array Alphabetically using the sort Method
+function alphabeticalOrder(arr) {
+  // Add your code below this line
+  arr.sort();
+  console.log(arr);
+  return arr;
+  // Add your code above this line
+}
+
+console.log(alphabeticalOrder(["a", "d", "c", "a", "z", "g"]));
+
+//17. Return a Sorted Array Without Changing the Original Array
+var globalArray = [5, 6, 3, 2, 9];
+let carr = [];
+function nonMutatingSort(arr) {
+  // Add your code below this line
+  return arr.concat(carr).sort((a,b) => {
+    return a - b;
+  });
+  
+  // Add your code above this line
+}
+console.log(nonMutatingSort(globalArray));
+
+//18. Split a String into an Array Using the split Method
+function splitify(str) {
+  // Add your code below this line
+  let arr = str.split(/\W/);
+  console.log(arr);
+  return arr;
+  
+  // Add your code above this line
+}
+console.log(splitify("Hello World,I-am code"));
+
+//19. Combine an Array into a String Using the join Method
+function sentensify(str) {
+  // Add your code below this line
+  let arr = str.split(/\W/);
+  let sent = arr.join(' ');
+  return sent;
+  // Add your code above this line
+}
+sentensify("May-the-force-be-with-you");
+
+//20. Apply Functional Programming to Convert Strings to URL Slugs
+// the global variable
+var globalTitle = "Winter Is Coming";
+
+// Add your code below this line
+function urlSlug(title) {
+  let result = title.toLowerCase().trim().split(/\W+/).join('-');
+  console.log(result);
+  return result;
+}
+// Add your code above this line
+
+var winterComing = urlSlug(globalTitle); // Should be "winter-is-coming"
+
+//21. Use the every Method to Check that Every Element in an Array Meets a Criteria
+function checkPositive(arr) {
+  // Add your code below this line
+  
+  return arr.every(val => val > 0);
+  // Add your code above this line
+}
+checkPositive([1, 2, 3, -4, 5]);
+
+//22. Use the some Method to Check that Any Elements in an Array Meet a Criteria
+function checkPositive(arr) {
+  // Add your code below this line
+  return arr.some(i=> i>0);
+  
+  // Add your code above this line
+}
+checkPositive([1, 2, 3, -4, 5]);
+
+//23. Introduction to Currying and Partial Application
+function add(x) {
+  // Add your code below this line
+  return (y => {
+    return (z => {
+      return x + y + z;
+    })
+  })
+  
+  // Add your code above this line
+}
+add(10)(20)(30);
