@@ -39,3 +39,54 @@ function diffArray(arr1, arr2) {
 
 console.log(diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]));
 
+//3. Seek and Destroy
+function destroyer() {
+  // Remove all the values
+  let args = [];
+  for (let i=0; i < arguments.length; i++) {
+    args.push(arguments[i]);
+  }
+  let firstArr = args.shift();
+  let newArr = [];
+  for (let i=0; i < args.length; i++) {
+      firstArr = firstArr.filter(item => item !== args[i]);
+      console.log('firstArr after filter', newArr);
+  }
+  return firstArr;      
+}
+
+console.log('result', destroyer([1, 2, 3, 1, 2, 3], 2, 3));
+
+//4. Wherefore art thou
+function whatIsInAName(collection, source) {
+  // What's in a name?
+  var arr = [];
+  let criteria = false;
+  // Only change code below this line
+  // console.log(Object.keys(collection[0])[0]);
+  for (let i=0; i < collection.length; i++) {
+    let kk = 0;
+    for (let j=0; j < Object.keys(collection[i]).length; j++) {
+        // console.log(Object.keys(collection[i])[j]);
+        
+        for (let k=0; k < Object.keys(source).length; k++) {
+          console.log('collection objects value', Object.values(collection[i])[j]);
+          if ( Object.keys(source)[k] == Object.keys(collection[i])[j] && Object.values(source)[k] == Object.values(collection[i])[j] ) {
+          console.log('source object value', Object.values(source)[k]);
+          kk++;
+          console.log(kk);
+          if (kk === Object.keys(source).length) {
+            arr.push(collection[i]);
+          }
+          // console.log(arr);
+          }
+        }
+    }    
+  }      
+  // Only change code above this line
+  return arr;
+}
+
+whatIsInAName([{ "apple": 1, "bat": 2 }, { "bat": 2 }, { "apple": 1, "bat": 2, "cookie": 2 }], { "apple": 1, "bat": 2 });
+
+//5. Spinal Tap Case
