@@ -172,4 +172,36 @@ function translatePigLatin(str) {
 console.log(translatePigLatin('skrtl'));
 
 //7. Search and Replace
+function myReplace(str, before, after) {
+  //1. find a target word in sentence
+  let strArr = str.split(/\W+/); 
+  console.log(strArr)
+  let ind = strArr.indexOf(before);
+  console.log(strArr[ind][0])
+  //2. check the case match of the target and replace words
+  let upperCase = /[A-Z]/; let lowerCase = /[a-z]/;
+  console.log(upperCase.test(strArr[ind][0]));
+  let After = '';
+  if (upperCase.test(strArr[ind][0])) {
+    After = after[0].toUpperCase();
+    for (let i=1; i < after.length; i++) {
+      After += after[i];
+    }
+    console.log(After);
+  } else {
+    After = after[0].toLowerCase();
+    for (let i=1; i < after.length; i++) {
+      After += after[i];
+    }
+    console.log(After);
+  }
+  //3. replace
+  strArr.splice(ind, 1, After);
+  console.log(strArr);
+  //4. convert to a string
+  let newStr = strArr.join(' ');
+  console.log(newStr)
+  return newStr;
+}
 
+myReplace("A quick brown fox Jumped over the lazy dog", "Jumped", "leaped");
