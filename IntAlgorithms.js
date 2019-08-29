@@ -90,3 +90,86 @@ function whatIsInAName(collection, source) {
 whatIsInAName([{ "apple": 1, "bat": 2 }, { "bat": 2 }, { "apple": 1, "bat": 2, "cookie": 2 }], { "apple": 1, "bat": 2 });
 
 //5. Spinal Tap Case
+function unConcatenate(str) {
+  // if (/[a-z]/.test(str[0])) {
+  //   return console.log(true);
+  // }
+  let uCWords = str.replace(/[a-z]/g,'');
+  let lCWords = str.split(/[A-Z]/).filter(item=>item.length !== 0);
+  console.log(uCWords, lCWords);
+  let newArr = [];
+  if (uCWords.length === lCWords.length) {
+    for (let i=0; i < uCWords.length; i++) {
+    newArr.push(uCWords[i] + lCWords[i]);
+  }
+  } else if (uCWords.length < lCWords.length) {
+    newArr.push(lCWords[0]);
+    for (let i=1; i < lCWords.length; i++) {
+    newArr.push(uCWords[i-1] + lCWords[i]);
+  }
+  } 
+  
+  return newArr;
+}
+let arr = ['hey', 'Man', 'How', 'Are', 'You'];
+console.log(unConcatenate(arr[0]));
+
+function spinalCase(str) {
+  // "It's such a fine line between stupid, and clever."
+  // --David St. Hubbins
+  let newArr = [];
+  let spinalC = str.trim().split(/[^A-Za-z]/);
+  console.log('spinalC', spinalC);
+
+  for (let i=0; i < spinalC.length; i++) {
+    console.log(i);
+    console.log('newArr',newArr);
+    console.log('unconcatenated str', unConcatenate(spinalC[i]));
+    newArr = [...newArr, ...unConcatenate(spinalC[i])];
+  }
+  console.log(newArr[0]);
+  let newStr = newArr.join('-').toLowerCase();
+  return newStr;
+}
+
+console.log(spinalCase("Teletubbies say Eh-oh"));
+
+//alternate solution
+// Replace low-upper case to low-space-uppercase
+str = str.replace(/([a-z])([A-Z])/g, '$1 $2');
+
+//6. Pig Latin
+function translatePigLatin(str) {
+  //1. find consonant before vowel
+  let vowels = /[aeiou]/gi;
+  let consonants = /[^aeiou]/;
+  let pigLatin = '';
+  //2. take all consonants before vowel to the end and add -ay
+  if (vowels.test(str[0])) {
+    pigLatin = str + 'way';
+    return pigLatin;
+  } else {
+  let i = 0; let cStr = ''; let vStr = ''; 
+  while (consonants.test(str[i])) {
+    cStr += str[i];
+    vStr = str.slice(i+1);
+    i++;
+    if (i === str.length) {
+      return pigLatin = str + 'ay';
+    }
+  }
+  console.log(cStr, vStr)
+  pigLatin = vStr + cStr + 'ay';
+  // console.log(pigLatin)
+  return pigLatin;
+  }
+  //3. if word begins with vowel add -way to the end
+  //line 7!
+  //4. if no vowels => add -ay
+  //line 16!
+}
+
+console.log(translatePigLatin('skrtl'));
+
+//7. Search and Replace
+
