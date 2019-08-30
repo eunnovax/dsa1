@@ -205,3 +205,55 @@ function myReplace(str, before, after) {
 }
 
 myReplace("A quick brown fox Jumped over the lazy dog", "Jumped", "leaped");
+
+//8. DNA Pair
+
+function pairElement(str) {
+  //1. define base pair
+  let strArr = str.split('');
+  console.log(strArr);
+  let bp = [];
+  for (let i=0; i < strArr.length; i++) {
+    if (strArr[i] === 'C') {
+      bp.push([strArr[i], 'G']);
+    } else if (strArr[i] === 'G') {
+      bp.push([strArr[i], 'C']);
+    } else if (strArr[i] === 'A') {
+      bp.push([strArr[i], 'T']);
+    } else if (strArr[i] === 'T') {
+      bp.push([strArr[i], 'A']);
+    }
+  }
+  //2. make BP symmetric (GC-CG)
+  //3. add a pair to str characters
+  //4. build 2d array of base pairs
+  console.log(bp);
+  return bp;
+}
+
+pairElement("CTCTA");
+
+//9. Missing letters
+function fearNotLetter(str) {
+  //1. define alphabet sequence
+  let abc = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  console.log(abc)
+  //2. identify the alphabet snippet 
+  let indArr = []; 
+  let ind = abc.indexOf(str[0]);
+  indArr.push([ind]); let abInd; let strChar; let ii = 0;
+  for (let i=1; i < abc.length; i++) {
+    ii++;
+    abInd = abc.indexOf(str[i]);
+    indArr.push(abInd);
+    if (indArr[i] - indArr[i-1] > 1) {
+      return strChar = abc[abInd-1];
+    } 
+  }
+  if (ii === abc.length - 1) {
+    return strChar = undefined;
+  }
+  //3. check if the letter is missing from the alphabet snippet
+}
+
+fearNotLetter("abce");
