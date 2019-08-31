@@ -257,3 +257,43 @@ function fearNotLetter(str) {
 }
 
 fearNotLetter("abce");
+
+//10. Sorted Union
+function uniteUnique() {
+  //1. Build an array out of argument arrays
+  let args = [];
+  for (let i=0; i < arguments.length; i++) {
+    args.push(arguments[i]);
+  } 
+  let su = args[0];
+  console.log(su);
+  //2. Built return array by comparing array elements to the 1st array elements
+  for (let i=1; i < args.length; i++) {
+    for (let j=0; j < args[i].length; j++) {
+      let m = 0;
+      for (let k=0; k < args[0].length; k++) {
+        if (su[k] !== args[i][j]) {
+          m++;
+        }
+      }
+      if (m === su.length) {
+          su.push(args[i][j]);
+          console.log(su)
+        }
+    }
+  }
+  return su;
+}
+
+uniteUnique([1, 3, 2], [1, [5]], [2, [4]]);
+
+//11. Convert HTML Entities
+function convertHTML(str) {
+//Chaining of replace method with different arguments
+  str = str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,"&apos;");
+return str;
+}
+
+// test here
+convertHTML("Dolce & Gabbana");
+
