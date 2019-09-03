@@ -297,3 +297,56 @@ return str;
 // test here
 convertHTML("Dolce & Gabbana");
 
+//12. Sum All Odd Fibonacci Numbers
+function sumFibs(num) {
+  //1. write fibonacci sequence 
+  let sum = 0;
+  let fs = []; fs[0] = 1; fs[1] = 1; let i = 2; let fn = 0;
+  if (num===1) {
+  return 1;}
+  while (i <= num) {
+    fn = fs[i-1] + fs[i-2];
+    fs.push(fn);
+    console.log(fs);
+    if (fs[i] % 2 !== 0 && fs[i] <= num) {
+      sum += fs[i];
+      console.log('sum', sum)
+    } else if (fs[i] > num) {
+      return sum+2;
+    }
+    i++;
+  }
+  //2. add all odd fn's <= num  
+}
+
+console.log(sumFibs(4));
+
+//13. Sum all primes
+function sumPrimes(num) {
+  //1. check prime number
+  let sum = 0;
+  let primeNumbers=[2]
+  let isPrime=false
+  for(let i=2; i<=num; i++){
+    isPrime=true;  
+    for (let j in primeNumbers){      
+      if (i%primeNumbers[j]===0){
+        isPrime=false
+        break;
+      }
+    }
+    if (isPrime){
+      primeNumbers.push(i)
+    }
+    console.log(i, 'prime', primeNumbers)
+  }  
+
+  for (let j in primeNumbers){      
+    sum+=primeNumbers[j]
+  }
+  return sum;
+}
+
+console.log(sumPrimes(90));
+
+//14. Smallest Common Multiple
