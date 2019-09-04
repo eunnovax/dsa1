@@ -350,3 +350,96 @@ function sumPrimes(num) {
 console.log(sumPrimes(90));
 
 //14. Smallest Common Multiple
+  //2
+  function numArray(minNum, maxNum) {
+    let NA = [];
+    if (minNum === 1) {
+      minNum = 2;
+    }
+    for (let i=minNum; i <= maxNum; i++) {
+      NA.push(i);
+    }
+    return NA;
+  }
+  //3
+  function primeArray(maxNum) {
+  
+    let PNA=[2]
+    let isPrime=false
+    for(let i=2; i<=maxNum; i++){
+      isPrime=true;  
+      for (let j in PNA){      
+        if (i%PNA[j]===0){
+          isPrime=false
+          break;
+        }
+      }
+      if (isPrime){
+        PNA.push(i);
+      }
+      // console.log(i, 'prime', PNA);
+    }
+    return PNA;
+  }
+  //4 
+  function scmArray(NA, PNA) {
+    // build 3D array
+    let SCMA = []; 
+    // build 2D array
+    let indSCMA = []; 
+    // console.log('NA', NA); 
+    // console.log('PNA',PNA)
+    for (let i=0; i < NA.length; i++) {
+      SCMA[i] = []; indSCMA[i] =[];
+      for (let j=0; j < PNA.length; j++) {
+        SCMA[i][j] = []; indSCMA[i][j] = [];
+        // console.log('NA', NA);
+        // console.log('PNA', PNA);
+        let NAPNA = NA[i];
+        while(NAPNA % PNA[j] === 0) {
+          NAPNA = NAPNA / PNA[j];
+          SCMA[i][j].push(PNA[j]);
+          // console.log('SCMA', SCMA);
+        } 
+        indSCMA[i][j].push(SCMA[i][j].length);
+        // console.log("indSCMA", indSCMA);
+      }
+    }
+    return indSCMA;
+  }
+  //5 
+  function scMultiple(PNA, indSCMA) {
+    console.log('indSCMA', indSCMA);
+    console.log('PNA', PNA);
+    let SCM = 1; let PTA = [];
+    let indSCMAT = indSCMA[0].map((col, i) => indSCMA.map(row => row[i]));
+    
+    let maxPrime;
+    for (let i=0; i < PNA.length; i++) {
+      console.log('indSCMA transpose', indSCMAT[i]);
+      maxPrime = Math.max(...indSCMAT[i]);
+      PTA.push(maxPrime);
+      console.log(maxPrime)
+      for (let j=0; j < PTA[i]; j++) {
+        SCM = SCM * PNA[i];
+      }
+    }
+    return SCM;
+  }
+
+function smallestCommons(arr) {
+  //1. maxNum = max from arr
+  let maxNum = Math.max(...arr);
+  let minNum = Math.min(...arr);
+  //2. NA = numArray (minNum, maxNum);
+  let NA = numArray(minNum, maxNum);
+  //3. PNA = primeArray (maxNum);
+  let PNA = primeArray(maxNum);
+  //4. indSCMA = scmArray (NA, PNA);
+  let indSCMA = scmArray(NA, PNA);
+  //5. SCM = scMultiple (PNA, indSCMA);
+  let SCM = scMultiple(PNA, indSCMA);
+  return SCM;
+}
+
+console.log('SCM is', smallestCommons([1,5]));  
