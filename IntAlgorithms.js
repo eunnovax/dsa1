@@ -443,3 +443,46 @@ function smallestCommons(arr) {
 }
 
 console.log('SCM is', smallestCommons([1,5]));  
+
+//15. Drop it
+function dropElements(arr, func) {
+  // Drop them elements.
+  //1. apply function on each element of the array
+  let i = 0; let newArr = [];
+  while (!func(arr[i])) {
+    i++;
+  }
+  //2. if function returns true => break loop and return the rest of the array
+  for (let j=i; j < arr.length; j++) {
+    newArr.push(arr[j]);
+  }
+  console.log(newArr);
+  return newArr;
+}
+
+dropElements([0, 1, 0, 1], function(n) {return n === 1; });
+
+//16. Steamroller
+function recursiveSR(arr, newArr) {
+  for (let i=0; i < arr.length; i++) {
+  if(Array.isArray(arr[i])) {
+    console.log('array', arr[i]);
+    recursiveSR(arr[i], newArr);
+  } else {
+  newArr.push(arr[i]);
+  console.log('newArr', newArr);
+  }
+  }
+  
+  return newArr;
+}
+
+function steamrollArray(arr) {
+  // I'm a steamroller, baby
+  let newArr = [];
+  let newArr1 = recursiveSR(arr, newArr);
+  console.log(newArr1);
+  return newArr1;
+}
+
+steamrollArray([1, [2], [3, [[4]]]]);
