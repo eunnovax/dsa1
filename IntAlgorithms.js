@@ -486,3 +486,124 @@ function steamrollArray(arr) {
 }
 
 steamrollArray([1, [2], [3, [[4]]]]);
+
+//17. Byte to string
+function binaryAgent(str) {
+
+var binString = '';
+
+str.split(' ').map(function(bin) {
+    console.log(bin);
+    let parse = parseInt(bin, 2);
+    console.log(parse)
+    binString += String.fromCharCode(parse);
+  });
+  console.log(binString);
+return binString;
+}
+
+
+binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");
+
+//18. Everything Be True
+function truthCheck(collection, pre) {
+  // Is everyone being true?
+  console.log(collection[0][pre])
+  let falsyArr = [false, 0, "", '', ``, null, undefined, NaN];
+  for (let i=0; i<collection.length; i++) {
+    if (collection[i][pre]) {
+      console.log("next");
+    } else {
+      return false;
+    }
+  }
+  return true;
+}
+
+truthCheck([{"user": "Tinky-Winky", "sex": "male"}, {"user": "Dipsy", "sex": "male"}, {"user": "Laa-Laa", "sex": "female"}, {"user": "Po", "sex": "female"}], "sex");
+
+//19. Arguments Optional
+function addTogether() {
+  //0. if 2 arguments are numbers => return the sum
+  let arr = [...arguments];
+  let j=0; let sum=0;
+  for (let i=0; i<arr.length; i++) {
+    if (typeof arr[i] === 'number') {
+      sum+= arr[i];
+      j++;
+    }
+  }
+  if (j === arr.length && arr.length !==1) {
+    console.log('hey1', sum)
+    return sum;
+  } else if (arr.length === 1 && typeof arr[0] === 'number') {
+    console.log('hey2');
+    return (function(y) {
+      if (typeof y === 'number') {
+        console.log('hey2.1')
+        return arr[0] + y;
+      } else {
+        return undefined;
+      }
+    });
+  } else if (j !== arr.length) {
+    console.log('hey3')
+    return undefined;
+  }
+  //1. if 1 argument => return function
+  //2. if argument is not a number => return undefined
+  // typeof argument[i] === 'number'
+}
+
+addTogether(2)(3);
+
+//20. Make a Person
+var Person = function(firstAndLast) {
+  // Complete the method below and implement the others similarly
+  let nameArr = firstAndLast.split(" ");
+  let name = firstAndLast;
+  this.getFullName = function() {
+    
+    return name;
+  };
+  this.getFirstName = function() {
+    nameArr = name.split(" ");
+    return nameArr[0];
+  };
+  this.getLastName = function() {
+    nameArr = name.split(" ");
+    return nameArr[1];
+  }
+  this.setFirstName = function(first) {
+    name = first + ' '+ nameArr[1];
+  };
+  this.setLastName = function(last) {
+    name = nameArr[0] +' '+ last;
+  }
+  this.setFullName = function(fullName) {
+    name = fullName;
+  }
+  // return firstAndLast;
+};
+
+var bob = new Person('Bob Ross');
+console.log(bob.getFullName());
+
+//21. Map the Debris
+function orbitalPeriod(arr) {
+  var GM = 398600.4418;
+  var earthRadius = 6367.4447;
+  //1. measure orbital period 
+  for (let i=0; i<arr.length; i++) {
+  let orbitalP;
+  orbitalP = Math.round(2*Math.PI*Math.sqrt(Math.pow((arr[i]["avgAlt"]+earthRadius),3)/GM));
+  console.log(orbitalP);
+  //2. replace avgAlt with orbitalPeriod
+  delete arr[i].avgAlt;
+  arr[i].orbitalPeriod = orbitalP;
+  //3. loop over all objects in an array
+  }
+  return arr;
+}
+
+orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
