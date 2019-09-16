@@ -26,19 +26,119 @@ function palindrome(str) {
 console.log(palindrome("1 eye for of 1 eye."));
 
 //2. Roman Numeral Converter
-function convertToRoman(num) {
-  let I = 1; let V = 5; let X = 10; let L = 50; 
-  let C = 100; let D = 500; let M = 1000;
-  //1. find the largest rn that is smaller than the num
-  //1.1 add it 3 times and still smaller by more than largest rn that is smaller => step 4
-  //2. find the 2nd largest & add it to the 1st until === num
-  //3. if the 2nd largest exceeds 3 times => 
-  //4. find the smallest rn that is larger than the num 
-  //5. find the next smaller rn & subtract it from the smallest rn that is larger
-  //6. if the result <= the next smaller rn => find the further smaller rn and subtract => repeat until smaller rn < result < num 
-  //7. find the rest & add the rest through step 1 
-
- return num;
+function grinder(num, roman) {
+  console.log(roman)
+  let I1 = 1; let V1 = 5; let X1 = 10; let L1 = 50; 
+  let C1 = 100; let D1 = 500; let M1 = 1000;
+  let arr = [I1,V1,X1,L1,C1,D1,M1];let nArr = ['I','V','X','L','C','D','M'];
+    for (let i=0; i<arr.length; i++) {
+      if (num === arr[i]) {
+        roman += nArr[i];
+        console.log(roman);
+        return roman;
+        }
+    }
+    
+    if (num < 10) {
+      console.log('hey');
+      if (num > 5 && num < 9) {
+        num -= 5;
+        roman+= 'V';
+        console.log(roman);
+        return grinder(num, roman);
+        }
+      else if (num === 9) {
+        roman+= 'IX';
+        return roman;
+      }  
+      else if (num === 4) {
+        roman+= 'IV';
+        console.log(roman);
+        return roman;
+        }
+      else if (num < 4) {
+        while (num > 0) {
+           num -= 1;          
+           roman+= 'I';
+          }
+          console.log(roman);
+        return roman;  
+        }
+    }
+    else if (num > 10 && num < 100) {
+      console.log('hey')
+      if (num > 50 && num < 90) {
+        num -= 50;
+        roman+= 'L';
+        console.log(roman);
+        return grinder(num, roman);
+        }
+      else if (num >= 90 && num < 100) {
+        num -= 90;
+        roman += 'XC';
+        return grinder(num, roman);
+      }
+      else if (num >= 40 && num < 50) {
+        num   -= 40;
+        roman += 'XL';
+        console.log(roman);
+        return grinder(num, roman);
+      }
+      else if (num < 40) {
+        console.log('hey')
+        while (num > 10) {
+    
+          num -= 10;
+          console.log(num)
+          roman+= 'X';
+          console.log(roman)
+        }
+        console.log(roman);
+        return grinder(num, roman);
+      }
+    }
+    else if (num > 100 && num < 1000) {
+      if (num > 500 && num < 900) {
+        num -= 500;
+        roman += 'D';
+        console.log(roman);
+        return grinder(num, roman);
+        }
+      else if (num >=900 && num < 1000) {
+        num -= 900;
+        roman += 'CM';
+        return grinder(num, roman);
+      }  
+      else if (num >= 400 && num < 500) {
+        num -= 400;
+        roman += 'CD';
+        console.log(roman);
+        return grinder(num, roman);
+        }
+      else if (num < 400) {
+        while (num > 100) {
+          num -= 100;
+          roman += 'C';
+        }
+        console.log(roman);
+        return grinder(num, roman);
+        }
+    }
+    else if (num > 1000) {
+      while (num > 1000) {
+        num -= 1000;
+        roman+= 'M';
+      }
+      console.log(roman);
+      return grinder(num, roman);
+      }
 }
 
-convertToRoman(36);
+function convertToRoman(num) {
+  let roman='';
+  let numeral = grinder(num, roman);
+  console.log(numeral);
+  return numeral;
+}
+
+convertToRoman(9);
