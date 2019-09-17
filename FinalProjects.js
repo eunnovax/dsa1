@@ -142,3 +142,49 @@ function convertToRoman(num) {
 }
 
 convertToRoman(9);
+
+//3.  Caesars Cipher
+function rot13(str) { // LBH QVQ VG!
+  let alphaBet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+  let caesarBet = []; let j;
+  for (let i=0; i<alphaBet.length; i++) {
+    j = i+13;
+    if (j >= alphaBet.length) {
+      j -= alphaBet.length;
+    }
+    caesarBet.push(alphaBet[j]);
+  }
+  console.log(caesarBet);
+  let strArr = str.split(''); let caesarArr=[];let caesarStr='';
+  // console.log(strArr);
+  for (let i=0; i<strArr.length; i++) {
+    const ind = caesarBet.indexOf(strArr[i]);
+    if (ind < 0) {
+      caesarArr.push(strArr[i]);
+    } else {
+      caesarArr.push(alphaBet[ind]);
+    }
+    // caesarStr+=alphaBet[ind];
+  }
+  console.log(caesarArr);
+  for (let i=0; i<caesarArr.length; i++) {
+    caesarStr+=caesarArr[i];
+  }
+  console.log(caesarStr);
+  return caesarStr;
+}
+
+// Change the inputs below to test
+rot13("SERR CVMMN!");
+
+//4. Telephone Number Validator
+function telephoneCheck(str) {
+  // Good luck!
+  let regex = /^(1\s?)?(\(\d{3}\)|\d{3})[\-\s]?\d{3}[\-\s]?\d{4}$/;
+  let res = regex.test(str);
+  return res;
+}
+
+telephoneCheck("555-555-5555");
+
+//5. Cash Register
