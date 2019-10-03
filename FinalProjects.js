@@ -188,3 +188,52 @@ function telephoneCheck(str) {
 telephoneCheck("555-555-5555");
 
 //5. Cash Register
+function checkCashRegister(price, cash, cid) {
+  var change;
+  // Here is your change, ma'am.
+  //0. coins = [["ONE HUNDRED", 100], 
+  //              ["TWENTY", 20], 
+  //              ["TEN", 10],
+  //              ["FIVE",5],
+  //              ["DOLLAR", 1],
+  //              ["QUARTER", 0.25],
+  //              ["DIME", 0.1],
+  //              ["NICKEL", 0.05],
+  //              ["PENNY", 0.01]
+  //              ];
+  //1. change = cash - price; 
+  //2. let cidRev = []; let i = cid.length;
+  //   while (i>0) {
+  //     cidRev = [...cidRev, cid[i][1]];
+  //     i -= 1;
+  //   }
+  //3. let left = change; let sorted = []; 
+  //   for (let i=0; i<coins.length;i++) {
+  //    if (change > coins[i][1]) {
+  //      let canDraw = (change - (change % coins[i][1]))/coins[i][1];
+  //      let hasDraw = cidRev[i] / coins[i][1];
+  //      if (canDraw >= hasDraw) {let withDrawn = hasDraw * coins[i][1];
+  //        left = change - withDrawn;
+  //        sorted = [...sorted, [coins[i][0],withDrawn ]];
+  //      }
+  //      else (canDraw < hasDraw) {let withDrawn = canDraw * coins[i][1];  //        left = change - withDrawn;
+  //        sorted = [...sorted, [ coins[i][0],withDrawn ]];
+  //      }
+  //    }
+  //  }
+  console.log(36.74);
+  return change;
+}
+
+// Example cash-in-drawer array:
+// [["PENNY", 1.01],
+// ["NICKEL", 2.05],
+// ["DIME", 3.1],
+// ["QUARTER", 4.25],
+// ["ONE", 90],
+// ["FIVE", 55],
+// ["TEN", 20],
+// ["TWENTY", 60],
+// ["ONE HUNDRED", 100]]
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
