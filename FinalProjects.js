@@ -189,51 +189,76 @@ telephoneCheck("555-555-5555");
 
 //5. Cash Register
 function checkCashRegister(price, cash, cid) {
-  var change;
-  // Here is your change, ma'am.
-  //0. coins = [["ONE HUNDRED", 100], 
-  //              ["TWENTY", 20], 
-  //              ["TEN", 10],
-  //              ["FIVE",5],
-  //              ["DOLLAR", 1],
-  //              ["QUARTER", 0.25],
-  //              ["DIME", 0.1],
-  //              ["NICKEL", 0.05],
-  //              ["PENNY", 0.01]
-  //              ];
-  //1. change = cash - price; 
-  //2. let cidRev = []; let i = cid.length;
-  //   while (i>0) {
-  //     cidRev = [...cidRev, cid[i][1]];
-  //     i -= 1;
-  //   }
-  //3. let left = change; let sorted = []; 
-  //   for (let i=0; i<coins.length;i++) {
-  //    if (change > coins[i][1]) {
-  //      let canDraw = (change - (change % coins[i][1]))/coins[i][1];
-  //      let hasDraw = cidRev[i] / coins[i][1];
-  //      if (canDraw >= hasDraw) {let withDrawn = hasDraw * coins[i][1];
-  //        left = change - withDrawn;
-  //        sorted = [...sorted, [coins[i][0],withDrawn ]];
-  //      }
-  //      else (canDraw < hasDraw) {let withDrawn = canDraw * coins[i][1];  //        left = change - withDrawn;
-  //        sorted = [...sorted, [ coins[i][0],withDrawn ]];
-  //      }
-  //    }
-  //  }
-  console.log(36.74);
-  return change;
+  //1. coins denomination array
+  //////////////////////////////////////////////////////////////////////
+  const coins = [["ONE HUNDRED", 100],["TWENTY", 20],["TEN", 10],["FIVE",5],["ONE", 1],["QUARTER", 0.25],["DIME", 0.1],["NICKEL", 0.05],["PENNY", 0.01]];
+  ////////////////////////////////////////////////////////////////////////
+     let cidSum = 0;
+  //2. change
+  ///////////////////////////////////////////////           
+     let change = cash - price; 
+    //  let change = Math.round(chang * 100) / 100;
+  /////////////////////////////////////////////////
+  //3. highest to lowest order cid numbers array
+  //////////////////////////////////////////////   
+     let cidRev = []; let i = cid.length;
+    while (i>0) {
+      cidRev = [...cidRev, cid[i-1][1]];
+      cidSum += cid[i-1][1]; 
+      cidSum = Math.round(cidSum * 100) / 100;
+      i--;
+    }
+  //////////////////////////////////////////////
+  //4. loop 
+    let statusCheck=''; let cashRegObj = {};
+     let left = Math.round(change*100) / 100; let sorted = []; 
+    for (let i=0; i<coins.length;i++) {
+      // console.log(left, coins[i][1])
+     if (left > coins[i][1]) {
+       console.log('left', left);
+       let leftModCoin = (left*100) % (coins[i][1]*100);
+       console.log('leftModCoin', leftModCoin, coins[i][1]);
+       leftModCoin = Math.round(leftModCoin * 100) / 100;
+       console.log('leftModCoin', leftModCoin);
+       let diffLeft = Math.round((left - leftModCoin)*100) / 100;
+       console.log('diffLeft', diffLeft);
+       let ratioCanDraw = Math.round((diffLeft/coins[i][1])*100) / 100;
+       let canDraw = ratioCanDraw;
+       console.log('canDraw', canDraw);
+       let ratioHasDraw = Math.round((cidRev[i]/coins[i][1])*100) / 100;
+       let hasDraw = ratioHasDraw;
+       console.log('hasDraw', hasDraw);
+       if (canDraw >= hasDraw) {let withDrawn = cidRev[i];
+       let left = left-withDrawn;
+        //  console.log('left take all', left, 'from', coins[i][1],'withdrawn', withDrawn)
+         sorted = [...sorted, [coins[i][0],withDrawn ]];
+         if (left === 0) {break}
+       } else if (canDraw < hasDraw) {let withDrawn = canDraw * coins[i][1];          
+       let left = left - withDrawn;
+      //  console.log('left take what can be', left);
+      sorted = [...sorted, [ coins[i][0],withDrawn ]];
+         if (left === 0) {break}
+       }
+     }
+    // console.log(left)
+
+   }
+  //////////////////////////////////////////////
+  //5. conditional output 
+  if (left !== 0 || change > cidSum) {
+    console.log('1st condition')
+    statusCheck = 'INSUFFICIENT_FUNDS';
+    cashRegObj = {status: statusCheck, change: []};
+  } else if (cidSum === change) {
+    statusCheck = 'CLOSED';
+    cashRegObj = {status: statusCheck, change:cid};
+  } else {
+    console.log('3rd condition');
+    statusCheck = 'OPEN';
+    cashRegObj = {status: statusCheck, change: sorted}
+  }
+  console.log('cashRegObj',cashRegObj.status, 'why', left, cidSum, change);
+  return cashRegObj;
 }
 
-// Example cash-in-drawer array:
-// [["PENNY", 1.01],
-// ["NICKEL", 2.05],
-// ["DIME", 3.1],
-// ["QUARTER", 4.25],
-// ["ONE", 90],
-// ["FIVE", 55],
-// ["TEN", 20],
-// ["TWENTY", 60],
-// ["ONE HUNDRED", 100]]
-
-checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
