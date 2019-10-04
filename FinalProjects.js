@@ -216,7 +216,7 @@ function checkCashRegister(price, cash, cid) {
       // console.log(left, coins[i][1])
      if (left > coins[i][1]) {
        console.log('left', left);
-       let leftModCoin = (left*100) % (coins[i][1]*100);
+       let leftModCoin = ((left*100) % (coins[i][1]*100)) / 100;
        console.log('leftModCoin', leftModCoin, coins[i][1]);
        leftModCoin = Math.round(leftModCoin * 100) / 100;
        console.log('leftModCoin', leftModCoin);
@@ -229,12 +229,13 @@ function checkCashRegister(price, cash, cid) {
        let hasDraw = ratioHasDraw;
        console.log('hasDraw', hasDraw);
        if (canDraw >= hasDraw) {let withDrawn = cidRev[i];
-       let left = left-withDrawn;
-        //  console.log('left take all', left, 'from', coins[i][1],'withdrawn', withDrawn)
+       console.log('left',left, 'withDrawn', withDrawn);
+       left = Math.round((left-withDrawn)*100) / 100;
+         console.log('left take all', left, 'from', coins[i][1],'withdrawn', withDrawn)
          sorted = [...sorted, [coins[i][0],withDrawn ]];
          if (left === 0) {break}
        } else if (canDraw < hasDraw) {let withDrawn = canDraw * coins[i][1];          
-       let left = left - withDrawn;
+       left = Math.round((left-withDrawn)*100) / 100;
       //  console.log('left take what can be', left);
       sorted = [...sorted, [ coins[i][0],withDrawn ]];
          if (left === 0) {break}
@@ -261,4 +262,4 @@ function checkCashRegister(price, cash, cid) {
   return cashRegObj;
 }
 
-checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
