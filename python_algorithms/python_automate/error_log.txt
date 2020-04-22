@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "c:/Users/darkhan29/Documents/software development/dsa1/python_algorithms/python_automate/debugging/raiseAssert.py", line 19, in <module>
+    raise Exception('This is the error message.')
+Exception: This is the error message.
